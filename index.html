@@ -646,9 +646,9 @@
   <script>
     async function loadCount() {
       try {
-        const res = await fetch('https://YOUR_SUPABASE_URL/rest/v1/waitlist?select=count', {
+        const res = await fetch('https://nvjvczqerqimasmmnwfs.supabase.coL/rest/v1/waitlist?select=count', {
           headers: {
-            'apikey': 'YOUR_SUPABASE_ANON_KEY',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52anZjenFlcnFpbWFzbW1ud2ZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5OTQyNTMsImV4cCI6MjA4NzU3MDI1M30.q-J0h2EUrBJJhNF_SzWIUa4f70pIuYpqqkJgN_2Xa9Q',
             'Prefer': 'count=exact',
           }
         });
@@ -685,12 +685,12 @@
       btn.disabled = true;
 
       try {
-        const res = await fetch('https://YOUR_SUPABASE_URL/rest/v1/waitlist', {
+        const res = await fetch('https://nvjvczqerqimasmmnwfs.supabase.co/rest/v1/waitlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'apikey': 'YOUR_SUPABASE_ANON_KEY',
-            'Authorization': 'Bearer YOUR_SUPABASE_ANON_KEY',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52anZjenFlcnFpbWFzbW1ud2ZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5OTQyNTMsImV4cCI6MjA4NzU3MDI1M30.q-J0h2EUrBJJhNF_SzWIUa4f70pIuYpqqkJgN_2Xa9Q',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52anZjenFlcnFpbWFzbW1ud2ZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5OTQyNTMsImV4cCI6MjA4NzU3MDI1M30.q-J0h2EUrBJJhNF_SzWIUa4f70pIuYpqqkJgN_2Xa9Q',
             'Prefer': 'return=minimal',
           },
           body: JSON.stringify({ email }),
