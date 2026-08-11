@@ -625,10 +625,10 @@
       <div id="waitlist">
         <form class="email-form" id="heroForm" onsubmit="submitEmail(event, 'heroForm', 'heroSuccess')">
           <input type="email" class="email-input" placeholder="your@email.com" required />
-          <button type="submit" class="submit-btn">Join</button>
+          <button type="submit" class="submit-btn">Join The SYNC List</button>
         </form>
-        <div class="success-msg" id="heroSuccess">You're on the list. See you soon.</div>
-        <p class="form-note">//Join the SYNC waitlist and get The SYNC List—weekly LA events and launch updates.
+        <div class="success-msg" id="heroSuccess">You're on the list. Check your inbox to confirm.</div>
+        <p class="form-note">// Join the SYNC waitlist and get The SYNC List—weekly LA events and launch updates.</p>
       </div>
     </div>
   </section>
@@ -698,7 +698,17 @@
       btn.disabled = true;
 
       try {
-        const res = await fetch('https://nvjvczqerqimasmmnwfs.supabase.co/rest/v1/waitlist', {
+        const kitBody = new FormData();
+        kitBody.append('email_address', email);
+        const kitResponse = await fetch('https://app.kit.com/forms/9790284/subscriptions', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: kitBody,
+        });
+
+        if (!kitResponse.ok) throw new Error('Kit subscription failed');
+
+        const waitlistResponse = await fetch('https://nvjvczqerqimasmmnwfs.supabase.co/rest/v1/waitlist', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -709,16 +719,16 @@
           body: JSON.stringify({ email }),
         });
 
-        if (res.ok || res.status === 409) {
-          form.style.display = 'none';
-          document.getElementById(successId).style.display = 'block';
-          loadCount();
-        } else {
-          btn.textContent = 'Join';
-          btn.disabled = false;
+        if (!waitlistResponse.ok && waitlistResponse.status !== 409) {
+          console.warn('Newsletter signup succeeded, but waitlist count did not update.');
         }
+
+        form.style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+        loadCount();
       } catch(err) {
-        btn.textContent = 'Join';
+        console.error('Newsletter signup failed:', err);
+        btn.textContent = 'Try Again';
         btn.disabled = false;
       }
     }
