@@ -570,7 +570,7 @@
 
   <nav>
     <div class="nav-logo">SYNC</div>
-    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+    <a href="#waitlist" class="nav-cta">Join The List</a>
   </nav>
 
   <!-- HERO -->
@@ -623,12 +623,10 @@
       </p>
 
       <div id="waitlist">
-        <form class="email-form" id="heroForm" onsubmit="submitEmail(event, 'heroForm', 'heroSuccess')">
-          <input type="email" class="email-input" placeholder="your@email.com" required />
-          <button type="submit" class="submit-btn">Join Waitlist</button>
-        </form>
-        <div class="success-msg" id="heroSuccess">You're on the waitlist. See you soon.</div>
-        <p class="form-note">// No spam. Just your spot in line.</p>
+        <div class="beehiiv-form-wrap">
+          <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="c598b93f-ee30-48d0-9780-7625c6424549"></script>
+        </div>
+        <p class="form-note">// Weekly LA events, SYNC updates, and early beta access.</p>
       </div>
     </div>
   </section>
@@ -686,42 +684,6 @@
     }
 
     loadCount();
-
-    async function submitEmail(e, formId, successId) {
-      e.preventDefault();
-      const form = document.getElementById(formId);
-      const input = form.querySelector('input[type="email"]');
-      const email = input.value.trim();
-      const btn = form.querySelector('button');
-
-      btn.textContent = '...';
-      btn.disabled = true;
-
-      try {
-        const waitlistResponse = await fetch('https://nvjvczqerqimasmmnwfs.supabase.co/rest/v1/waitlist', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52anZjenFlcnFpbWFzbW1ud2ZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5OTQyNTMsImV4cCI6MjA4NzU3MDI1M30.q-J0h2EUrBJJhNF_SzWIUa4f70pIuYpqqkJgN_2Xa9Q',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52anZjenFlcnFpbWFzbW1ud2ZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE5OTQyNTMsImV4cCI6MjA4NzU3MDI1M30.q-J0h2EUrBJJhNF_SzWIUa4f70pIuYpqqkJgN_2Xa9Q',
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify({ email }),
-        });
-
-        if (waitlistResponse.ok || waitlistResponse.status === 409) {
-          form.style.display = 'none';
-          document.getElementById(successId).style.display = 'block';
-          loadCount();
-        } else {
-          throw new Error('Waitlist signup failed');
-        }
-      } catch(err) {
-        console.error('Waitlist signup failed:', err);
-        btn.textContent = 'Try Again';
-        btn.disabled = false;
-      }
-    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
